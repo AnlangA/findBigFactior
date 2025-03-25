@@ -4,7 +4,17 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-num-bigint = "0.4.0"
-num-integer = "0.1.46"
-num-traits = "0.2.19"
-rand = "0.9.0"
+num-bigint = "0.4"
+num-traits = "0.2"
+num-integer = "0.1"
+lazy_static = "1.4.0"  # 用于延迟初始化静态变量
+rayon = "1.8.0"  # 数据并行库
+rand = "0.9.0"  # 随机数生成
+num_cpus = "1.16.0"  # 获取系统CPU数量
+
+[profile.release]
+lto = true  # 启用链接时优化
+codegen-units = 1  # 减少代码生成单元提高优化
+opt-level = 3  # 最高优化级别
+panic = "abort"  # 减少panic处理代码
+debug = false  # 禁用调试信息

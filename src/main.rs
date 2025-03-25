@@ -2,6 +2,7 @@ use num_bigint::{BigUint, ToBigUint};
 use num_traits::{One, Zero, ToPrimitive};
 use num_integer::Integer;
 use rand::Rng;
+use std::time::Instant;
 
 /// Finds the largest prime factor of a number using probabilistic methods
 /// Uses Miller-Rabin primality test and Pollard's rho algorithm for factorization
@@ -202,10 +203,18 @@ fn main() {
         "9007199254740991", // 2^53 - 1
         "123456789012345678901234567890123456789",
         "33",
+        "101",
+        "100"
     ];
     
     for &tc in &test_cases {
         let num = tc.parse::<BigUint>().unwrap();
-        println!("Largest prime factor of {} is {}", tc, largest_prime_factor(&num));
+        let start = Instant::now();
+        let result = largest_prime_factor(&num);
+        let duration = start.elapsed();
+        println!(
+            "Largest prime factor of {} is {} (computed in {:?})",
+            tc, result, duration
+        );
     }
 }
